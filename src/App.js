@@ -41,7 +41,6 @@ const App = () => {
 
     return (
         <div>
-            <h1>Biblioteka Tolerado</h1>
             <StyleReset />
             <Header />
             <BrowserRouter>
