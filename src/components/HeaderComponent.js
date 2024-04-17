@@ -1,6 +1,6 @@
 import React from 'react';
 import logo from './logo_horizontal.png';
-import './HeaderComponent.css'; // mportuj plik stylów
+import './HeaderComponent.css';
 import Menu from'./Menu'
 
 

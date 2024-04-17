@@ -42,7 +42,6 @@ const RentalList = ({ rentals }) => {
 
     return (
         <div style={{backgroundColor: 'white', borderRadius: '5px', padding: '10px'}}>
-            <h2>Wypożyczenia</h2>
             <DataGrid
                 rows={rentalRows}
                 columns={columns}
