@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { StyleReset } from 'atomize';
 import {
     BrowserRouter,
     Routes, // instead of "Switch"
@@ -8,9 +7,8 @@ import {
 } from "react-router-dom";
 import BookList from './components/BookList';
 import Header from './components/HeaderComponent'; // Zaimportuj komponent BookList
-import logoHorizontal from './components/logo_horizontal.png';
 import RentalList from "./components/RentalList"; // Zaimportuj logo
-
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 const App = () => {
     const [books, setBooks] = useState([]);
@@ -41,7 +39,6 @@ const App = () => {
 
     return (
         <div>
-            <StyleReset />
             <Header />
             <BrowserRouter>
                 <Routes>

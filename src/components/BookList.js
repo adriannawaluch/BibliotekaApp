@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import * as React from 'react';
+import { DataGrid } from '@mui/x-data-grid';
 import axios from 'axios';
 
 const BookList = ({ books }) => {
-    const [selectedBook, setSelectedBook] = useState(null);
+    const [selectedBook, setSelectedBook] = React.useState(null);
 
     const handleDeleteButtonClick = async () => {
         if (!selectedBook) {
@@ -36,41 +37,29 @@ const BookList = ({ books }) => {
         }
     };
 
+    const columns = [
+        { field: 'bookId', headerName: 'ID', width: 70 },
+        { field: 'title', headerName: 'Tytuł', width: 130 },
+        { field: 'language', headerName: 'Język', width: 130 },
+        { field: 'authorsList', headerName: 'Autor', width: 130 },
+        { field: 'availability', headerName: 'Dostępność', width: 130 },
+    ];
+
     return (
-        <div>
-            <h2>Lista Książek</h2>
-            <table>
-                <thead>
-                <tr>
-                    <th></th> {/* Pole na radio button */}
-                    <th>Tytuł</th>
-                    <th>Język</th>
-                    <th>Autor</th>
-                    <th>Dostępność</th>
-                </tr>
-                </thead>
-                <tbody>
-                {books.map(book => (
-                    <tr key={book.bookId}>
-                        <td>
-                            <input
-                                type="radio"
-                                name="selectedBook"
-                                value={book.bookId}
-                                checked={selectedBook === book.bookId}
-                                onChange={() => setSelectedBook(book.bookId)}
-                            />
-                        </td>
-                        <td>{book.title}</td>
-                        <td>{book.language}</td>
-                        <td>{book.authorsList.join(', ')}</td>
-                        <td>{book.availability}</td>
-                    </tr>
-                ))}
-                </tbody>
-            </table>
-            <button onClick={handleDeleteButtonClick}>Usuń zaznaczoną</button>
-            <button onClick={handleBorrowButtonClick}>Wypożycz zaznaczoną</button>
+        <div style={{ height: '100%', width: '100%' }}>
+            <DataGrid
+                rows={books.map(book => ({ ...book, id: book.bookId }))} // Dodajemy id do każdego wiersza
+                columns={columns}
+                pageSize={5}
+                checkboxSelection
+                onSelectionModelChange={(newSelection) => {
+                    setSelectedBook(newSelection.selectionModel[0]);
+                }}
+            />
+            <div>
+                <button onClick={handleDeleteButtonClick}>Usuń zaznaczoną</button>
+                <button onClick={handleBorrowButtonClick}>Wypożycz zaznaczoną</button>
+            </div>
         </div>
     );
 };

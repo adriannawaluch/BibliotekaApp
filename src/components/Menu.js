@@ -21,11 +21,11 @@ function Menu() {
     };
 
     return (
-        <Navbar variant="dark" bg="dark" expand="lg" onMouseLeave={handleMouseLeave}>
+        <Navbar variant="light" bg="light" expand="lg" onMouseLeave={handleMouseLeave}>
             <Container fluid>
                 <Navbar.Brand href="/">Strona główna</Navbar.Brand>
-                <Navbar.Toggle onClick={handleMenuToggle} aria-controls="navbar-dark-example" />
-                <Navbar.Collapse id="navbar-dark-example" className={`${isMenuOpen ? 'show' : ''}`}>
+                <Navbar.Toggle onClick={handleMenuToggle} aria-controls="navbar-light-example" />
+                <Navbar.Collapse id="navbar-light-example" className={`${isMenuOpen ? 'show' : ''}`}>
                     <Nav>
                         <NavDropdown
                             id="nav-dropdown-dark-example"
