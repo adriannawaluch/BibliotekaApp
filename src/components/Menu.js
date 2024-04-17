@@ -21,7 +21,7 @@ function Menu() {
     };
 
     return (
-        <Navbar variant="light" bg="light" expand="lg" onMouseLeave={handleMouseLeave}>
+        <Navbar variant="outline-light" bg="light" expand="lg" onMouseLeave={handleMouseLeave}>
             <Container fluid>
                 <Navbar.Brand href="/">Strona główna</Navbar.Brand>
                 <Navbar.Toggle onClick={handleMenuToggle} aria-controls="navbar-light-example" />

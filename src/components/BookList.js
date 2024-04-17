@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { DataGrid } from '@mui/x-data-grid';
 import axios from 'axios';
+import Button from 'react-bootstrap/Button';
 
 const BookList = ({ books }) => {
     const [selectedBook, setSelectedBook] = React.useState(null);
@@ -57,8 +58,8 @@ const BookList = ({ books }) => {
                 }}
             />
             <div>
-                <button onClick={handleDeleteButtonClick}>Usuń zaznaczoną</button>
-                <button onClick={handleBorrowButtonClick}>Wypożycz zaznaczoną</button>
+                <Button variant="outline-dark" onClick={handleDeleteButtonClick}>Usuń zaznaczoną</Button>
+                <Button variant="outline-dark" onClick={handleBorrowButtonClick}>Wypożycz zaznaczoną</Button>
             </div>
         </div>
     );
