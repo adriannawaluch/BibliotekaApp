@@ -5,6 +5,7 @@ import Button from 'react-bootstrap/Button';
 
 const BookList = ({ books }) => {
     const [selectedBook, setSelectedBook] = React.useState(null);
+    const [rowSelectionModel, setRowSelectionModel] = React.useState([]);
 
     const handleDeleteButtonClick = async () => {
         if (!selectedBook) {
@@ -15,7 +16,9 @@ const BookList = ({ books }) => {
         try {
             await axios.delete(`http://localhost:3000/deleteBook?bookId=${selectedBook}`);
             alert('Książka została pomyślnie usunięta!');
-            setSelectedBook(null); // Wyczyść wybraną książkę po usunięciu
+            setSelectedBook(null);
+            // Usuwamy również zaznaczenie wiersza po usunięciu książki
+            setRowSelectionModel(rowSelectionModel.filter(id => id !== selectedBook));
         } catch (error) {
             console.error('Błąd podczas usuwania książki:', error);
             alert('Wystąpił błąd podczas usuwania książki');
@@ -31,7 +34,7 @@ const BookList = ({ books }) => {
         try {
             await axios.post('http://localhost:3000/rentBook', { bookId: selectedBook });
             alert('Książka została pomyślnie wypożyczona!');
-            setSelectedBook(null); // Wyczyść wybraną książkę po wypożyczeniu
+            setSelectedBook(null);
         } catch (error) {
             console.error('Błąd podczas wypożyczania książki:', error);
             alert('Wystąpił błąd podczas wypożyczania książki');
@@ -48,18 +51,22 @@ const BookList = ({ books }) => {
 
     return (
         <div style={{ height: '100%', width: '100%' }}>
-            <DataGrid
-                rows={books.map(book => ({ ...book, id: book.bookId }))} // Dodajemy id do każdego wiersza
-                columns={columns}
-                pageSize={5}
-                checkboxSelection
-                onSelectionModelChange={(newSelection) => {
-                    setSelectedBook(newSelection.selectionModel[0]);
-                }}
-            />
+            <div>
+                <DataGrid
+                    rows={books.map(book => ({ ...book, id: book.bookId }))}
+                    columns={columns}
+                    pageSize={5}
+                    checkboxSelection
+                    rowSelectionModel={rowSelectionModel}
+                    onRowSelectionModelChange={(newSelection) => {
+                        setRowSelectionModel(newSelection);
+                        setSelectedBook(newSelection.length > 0 ? newSelection[0] : null);
+                    }}
+                />
+            </div>
             <div>
                 <Button variant="outline-dark" onClick={handleDeleteButtonClick}>Usuń zaznaczoną</Button>
-                <Button variant="outline-dark" onClick={handleBorrowButtonClick}>Wypożycz zaznaczoną</Button>
+                <Button variant="outline-dark" onClick={handleBorrowButtonClick} disabled={!selectedBook}>Wypożycz zaznaczoną</Button>
             </div>
         </div>
     );

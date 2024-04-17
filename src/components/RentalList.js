@@ -4,19 +4,21 @@ import Button from 'react-bootstrap/Button';
 import { DataGrid } from '@mui/x-data-grid';
 
 const RentalList = ({ rentals }) => {
-    const [selectedReturn, setSelectedReturn] = useState(null);
+    const [rowSelectionModel, setRowSelectionModel] = useState([]);
 
     const handleReturnButtonClick = async () => {
-        if (!selectedReturn) {
+        if (!rowSelectionModel.length) {
             alert('Proszę wybrać książkę do zwrócenia.');
             return;
         }
-        const selectedRental = rentals.find(rental => rental.loanID === selectedReturn);
+
+        const selectedRental = rentals.find(rental => rental.loanID === rowSelectionModel[0]);
         const bookId = selectedRental.book.bookId;
+
         try {
-            await axios.post('http://localhost:3000/returnBook', { loanId: selectedReturn, bookId: bookId });
+            await axios.post('http://localhost:3000/returnBook', { loanId: rowSelectionModel[0], bookId: bookId });
             alert('Książka została pomyślnie zwrócona!');
-            setSelectedReturn(null); // Wyczyść wybraną książkę po zwróceniu
+            setRowSelectionModel([]); // Wyczyść wybrany wiersz po zwróceniu
         } catch (error) {
             console.error('Błąd podczas zwracania książki:', error);
             alert('Wystąpił błąd podczas zwracania książki');
@@ -45,8 +47,9 @@ const RentalList = ({ rentals }) => {
                 columns={columns}
                 pageSize={5}
                 checkboxSelection
-                onSelectionModelChange={(newSelection) => {
-                    setSelectedReturn(newSelection.selectionModel[0]);
+                rowSelectionModel={rowSelectionModel}
+                onRowSelectionModelChange={(newSelection) => {
+                    setRowSelectionModel(newSelection.length ? [newSelection[0]] : []);
                 }}
             />
             <Button variant="outline-dark" onClick={handleReturnButtonClick}>Zwróć zaznaczoną</Button>
