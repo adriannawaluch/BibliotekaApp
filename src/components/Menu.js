@@ -35,7 +35,7 @@ function Menu() {
                             onMouseEnter={handleMenuToggle}
                             onMouseLeave={handleMenuClose}
                         >
-                            <NavDropdown.Item href="/myRentals">Moje konto</NavDropdown.Item>
+                            {/*<NavDropdown.Item href="/myRentals">Moje konto</NavDropdown.Item>*/}
                             <NavDropdown.Item href="/myRentals">
                                 Moje wypożyczenia
                             </NavDropdown.Item>

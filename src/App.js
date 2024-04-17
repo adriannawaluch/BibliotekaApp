@@ -2,13 +2,14 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import {
     BrowserRouter,
-    Routes, // instead of "Switch"
+    Routes,
     Route,
 } from "react-router-dom";
 import BookList from './components/BookList';
-import Header from './components/HeaderComponent'; // Zaimportuj komponent BookList
-import RentalList from "./components/RentalList"; // Zaimportuj logo
+import Header from './components/HeaderComponent';
+import RentalList from "./components/RentalList";
 import 'bootstrap/dist/css/bootstrap.min.css';
+import { RainbowButton, RainbowDiv } from './components/styles';
 
 const App = () => {
     const [books, setBooks] = useState([]);
@@ -38,7 +39,7 @@ const App = () => {
     }, []);
 
     return (
-        <div>
+        <RainbowDiv style={{ margin: '20px' }}>
             <Header />
             <BrowserRouter>
                 <Routes>
@@ -46,7 +47,7 @@ const App = () => {
                     <Route path="/myRentals" element={<RentalList rentals={rentals} />} />
                 </Routes>
             </BrowserRouter>
-        </div>
+        </RainbowDiv>
     );
 };
 

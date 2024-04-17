@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import Button from 'react-bootstrap/Button';
 import { DataGrid } from '@mui/x-data-grid';
+import {RainbowButton, RainbowDiv} from "./styles";
 
 const RentalList = ({ rentals }) => {
     const [rowSelectionModel, setRowSelectionModel] = useState([]);
@@ -40,7 +41,7 @@ const RentalList = ({ rentals }) => {
     ];
 
     return (
-        <div>
+        <div style={{backgroundColor: 'white', borderRadius: '5px', padding: '10px'}}>
             <h2>Wypożyczenia</h2>
             <DataGrid
                 rows={rentalRows}
@@ -52,7 +53,7 @@ const RentalList = ({ rentals }) => {
                     setRowSelectionModel(newSelection.length ? [newSelection[0]] : []);
                 }}
             />
-            <Button variant="outline-dark" onClick={handleReturnButtonClick}>Zwróć zaznaczoną</Button>
+            <RainbowButton variant="outline-dark" onClick={handleReturnButtonClick}>Zwróć zaznaczoną</RainbowButton>
         </div>
     );
 };

@@ -2,6 +2,8 @@ import * as React from 'react';
 import { DataGrid } from '@mui/x-data-grid';
 import axios from 'axios';
 import Button from 'react-bootstrap/Button';
+import { RainbowButton, RainbowDiv } from './styles'; // Importujemy stylowane komponenty
+
 
 const BookList = ({ books }) => {
     const [selectedBook, setSelectedBook] = React.useState(null);
@@ -50,10 +52,10 @@ const BookList = ({ books }) => {
     ];
 
     return (
-        <div style={{ height: '100%', width: '100%' }}>
-            <div>
+        <div style={{height: '100%', width: '100%'}}>
+            <div style={{backgroundColor: 'white', borderRadius: '5px', padding: '10px'}}>
                 <DataGrid
-                    rows={books.map(book => ({ ...book, id: book.bookId }))}
+                    rows={books.map(book => ({...book, id: book.bookId}))}
                     columns={columns}
                     pageSize={5}
                     checkboxSelection
@@ -65,8 +67,9 @@ const BookList = ({ books }) => {
                 />
             </div>
             <div>
-                <Button variant="outline-dark" onClick={handleDeleteButtonClick}>Usuń zaznaczoną</Button>
-                <Button variant="outline-dark" onClick={handleBorrowButtonClick} disabled={!selectedBook}>Wypożycz zaznaczoną</Button>
+                <RainbowButton variant="outline-dark" onClick={handleDeleteButtonClick}>Usuń zaznaczoną</RainbowButton>
+                <RainbowButton variant="outline-dark" onClick={handleBorrowButtonClick} disabled={!selectedBook}>Wypożycz
+                    zaznaczoną</RainbowButton>
             </div>
         </div>
     );
